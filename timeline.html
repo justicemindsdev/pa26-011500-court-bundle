@@ -1,0 +1,433 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;background:#fff;color:#0b0c0c;font-size:14px}
+.hero{background:#4c2c92;width:100%}
+.hero-img{width:100%;line-height:0}
+.hero-img img{width:100%;height:auto;display:block;max-height:110px;object-fit:cover;object-position:left center}
+.hfb{display:none;align-items:center;padding:20px 24px;gap:14px}
+.hfb-box{width:40px;height:40px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hfb-name{font-size:18px;font-weight:700;color:#fff}
+.hfb-sub{font-size:10px;color:rgba(255,255,255,0.55);letter-spacing:.07em;text-transform:uppercase;margin-top:2px}
+.hero-lower{padding:11px 24px 15px;border-top:3px solid rgba(255,255,255,0.22)}
+.hero-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.hero-title{font-size:15px;font-weight:700;color:#fff}
+.hero-ref{font-size:11px;color:rgba(255,255,255,0.5);font-style:italic}
+.phase{background:#1d70b8;padding:8px 24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ptag{background:#fff;color:#1d70b8;font-size:10px;font-weight:700;padding:2px 8px;letter-spacing:.06em;text-transform:uppercase;flex-shrink:0}
+.ptext{color:#fff;font-size:12px;flex:1}
+.live{background:#00703c;color:#fff;font-size:10px;font-weight:700;padding:2px 10px;letter-spacing:.1em;text-transform:uppercase;flex-shrink:0}
+.tabs{border-bottom:1px solid #b1b4b6;display:flex;padding:0 24px;overflow-x:auto}
+.tab{font-size:12px;padding:11px 14px 9px;cursor:pointer;border-bottom:4px solid transparent;color:#505a5f;background:none;border-top:none;border-left:none;border-right:none;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;white-space:nowrap}
+.tab:first-child{padding-left:0}
+.tab.on{color:#0b0c0c;font-weight:700;border-bottom:4px solid #1d70b8}
+.main{padding:18px 24px}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid #b1b4b6;margin-bottom:18px}
+.sc{padding:11px 13px;border-right:1px solid #b1b4b6}
+.sc:last-child{border-right:none}
+.sl{font-size:10px;color:#505a5f;text-transform:uppercase;letter-spacing:.07em;font-weight:700;margin-bottom:3px}
+.sv{font-size:22px;font-weight:700;color:#4c2c92;line-height:1}
+.ss{font-size:10px;color:#505a5f;margin-top:2px}
+.callout-red{border-left:5px solid #d4351c;padding:11px 15px;margin-bottom:18px;background:#fdf2f2}
+.callout-purple{border-left:5px solid #4c2c92;padding:11px 15px;margin-bottom:18px;background:#f7f4fc}
+.cl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.ct{font-size:12.5px;color:#0b0c0c;line-height:1.65}
+.sh{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#505a5f;padding:10px 0 7px;border-bottom:2px solid #0b0c0c;margin-bottom:0}
+.tl-day{background:#0b0c0c;color:#fff;padding:8px 14px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:1px;display:flex;align-items:center;justify-content:space-between}
+.tl-day-count{font-size:10px;color:rgba(255,255,255,0.6);font-weight:400}
+.tl-row{border:1px solid #b1b4b6;border-top:none;cursor:pointer}
+.tl-head{display:grid;grid-template-columns:90px 80px 1fr 160px auto;align-items:center;padding:11px 14px;gap:10px}
+.tl-harm{font-size:10px;color:#0b0c0c;line-height:1.5}
+.tl-harm-why{font-weight:700;color:#d4351c;margin-bottom:3px;font-size:10px;line-height:1.4}
+.tl-harm-tags{display:flex;flex-wrap:wrap;gap:3px}
+.tl-time{font-size:11px;font-weight:700;color:#4c2c92;font-variant-numeric:tabular-nums}
+.tl-officer{font-size:11px;font-weight:700;color:#0b0c0c;text-transform:uppercase}
+.tl-admission{font-size:12px;color:#0b0c0c;line-height:1.4}
+.tl-tog{font-size:16px;color:#4c2c92;font-weight:700;text-align:right}
+.tl-body{display:none;padding:0 14px 14px 194px;border-top:1px solid #f0f0f0}
+.tl-body.open{display:block}
+.tl-ben{border-left:3px solid #1d70b8;padding:7px 10px;margin:10px 0 8px;background:#f4f8fd;font-size:11.5px;font-style:italic;color:#0b0c0c;line-height:1.6}
+.tl-said{border-left:3px solid #f47738;padding:7px 10px;margin-bottom:10px;background:#fffaf4;font-size:11.5px;font-style:italic;color:#0b0c0c;line-height:1.6}
+.tl-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 7px}
+.tag-a3{background:#d4351c;color:#fff}
+.tag-a2{background:#0b0c0c;color:#fff}
+.tag-mis{background:#4c2c92;color:#fff}
+.tag-ea{background:#00703c;color:#fff}
+.tag-s188{background:#1d70b8;color:#fff}
+.tag-a6{background:#f47738;color:#0b0c0c}
+.tl-link{font-size:11px;color:#1d70b8;text-decoration:underline;cursor:pointer}
+.officer-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0;border:1px solid #b1b4b6;margin-bottom:18px}
+.oc{padding:13px 15px;border-right:1px solid #b1b4b6;border-bottom:1px solid #b1b4b6}
+.oc:nth-child(3n){border-right:none}
+.oc-name{font-size:13px;font-weight:700;color:#4c2c92;margin-bottom:4px}
+.oc-role{font-size:10px;color:#505a5f;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.oc-count{font-size:20px;font-weight:700;color:#0b0c0c}
+.oc-sub{font-size:10px;color:#505a5f;margin-top:2px}
+.oc-key{font-size:11px;color:#0b0c0c;margin-top:6px;line-height:1.5;border-left:3px solid #d4351c;padding-left:7px}
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+th{background:#0b0c0c;color:#fff;padding:8px 10px;text-align:left;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.06em}
+td{padding:8px 10px;border-bottom:1px solid #b1b4b6;vertical-align:top;line-height:1.5}
+tr:nth-child(even) td{background:#f2f0f0}
+.disclaimer{font-size:10px;color:#767676;padding:10px 24px 14px;border-top:1px solid #b1b4b6;line-height:1.6}
+.exhibit-strip{margin-top:12px;border-top:2px solid #4c2c92;padding-top:10px}
+.exhibit-strip-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#4c2c92;margin-bottom:8px}
+.grain-verbatim{margin-top:12px;border-top:2px solid #0b0c0c;padding-top:10px}
+.grain-verbatim-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#0b0c0c;margin-bottom:6px}
+.grain-verbatim-text{font-size:11px;color:#0b0c0c;background:#f8f8f8;border-left:4px solid #0b0c0c;padding:8px 10px;line-height:1.7;font-family:monospace}
+.exhibit-thumbs{display:flex;gap:10px;flex-wrap:wrap}
+.exhibit-thumb{display:flex;gap:8px;align-items:flex-start;background:#f7f4fc;border:1px solid #b1b4b6;padding:7px 9px;text-decoration:none;cursor:pointer;max-width:240px;flex:1;min-width:160px}
+.exhibit-thumb:hover{border-color:#4c2c92;background:#ede8f5}
+.exhibit-thumb img{width:52px;height:52px;object-fit:cover;flex-shrink:0;border:1px solid #b1b4b6;background:#eee}
+.exhibit-thumb-meta{flex:1;min-width:0}
+.exhibit-thumb-badge{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#fff;padding:1px 5px;display:inline-block;margin-bottom:4px}
+.exhibit-thumb-title{font-size:10px;color:#0b0c0c;line-height:1.4;font-weight:600}
+@media(max-width:600px){
+  .stats{grid-template-columns:1fr 1fr}
+  .sc:nth-child(odd){border-right:1px solid #b1b4b6}
+  .sc:nth-child(even){border-right:none}
+  .sc:nth-child(3),.sc:nth-child(4),.sc:nth-child(5){border-top:1px solid #b1b4b6}
+  .tl-head{grid-template-columns:70px 70px 1fr auto;grid-template-rows:auto auto}
+  .tl-harm{grid-column:1/-1;padding-top:5px;border-top:1px solid #f0f0f0;margin-top:5px}
+  .tl-body{padding-left:14px}
+  .tl-body.open{display:block}
+}
+</style>
+
+<div class="hero">
+  <div class="hero-img">
+    <img src="https://tvecnfdqakrevzaeifpk.supabase.co/storage/v1/object/public/MONA/JM-HEADER.svg" alt="Justice Minds" onerror="this.style.display='none';document.getElementById('hfb').style.display='flex'">
+    <div id="hfb" class="hfb">
+      <div class="hfb-box"><svg width="20" height="20" viewBox="0 0 22 22" fill="none"><polygon points="11,2 20,19 2,19" fill="none" stroke="#fff" stroke-width="2"/><line x1="11" y1="8" x2="11" y2="14" stroke="#fff" stroke-width="1.8"/><circle cx="11" cy="17" r="1.1" fill="#fff"/></svg></div>
+      <div><div class="hfb-name">Justice Minds</div><div class="hfb-sub">Forensic Intelligence Ltd</div></div>
+    </div>
+  </div>
+  <div class="hero-lower">
+    <div class="hero-row">
+      <div class="hero-title">Admission Timeline — Ben Mak v Westminster City Council</div>
+      <div class="hero-ref">PA26-011500 · 25 Aug – 3 Oct 2025 · 7 Officers · Verbatim Grain recordings</div>
+    </div>
+  </div>
+</div>
+
+<div class="phase">
+  <span class="ptag">Active</span>
+  <span class="ptext">37 timestamped admissions · 10 officers + 1 automated system · Autism disclosed at every contact · Zero reasonable adjustment record survived</span>
+  <span class="live">Live</span>
+</div>
+
+<div class="tabs">
+  <button class="tab on" onclick="show('timeline')">Full timeline</button>
+  <button class="tab" onclick="show('officers')">By officer</button>
+  <button class="tab" onclick="show('pattern')">Pattern evidence</button>
+  <button class="tab" onclick="show('table')">Disclosure log</button>
+</div>
+
+<div class="main">
+
+<div id="tab-timeline">
+  <div class="stats">
+    <div class="sc"><div class="sl">Total admissions</div><div class="sv">40</div><div class="ss">Verbatim</div></div>
+    <div class="sc"><div class="sl">Officers</div><div class="sv">10</div><div class="ss">Named on tape + 1 system</div></div>
+    <div class="sc"><div class="sl">Disability disclosures</div><div class="sv" style="color:#d4351c">25+</div><div class="ss">Zero records survived</div></div>
+    <div class="sc"><div class="sl">Days covered</div><div class="sv">5</div><div class="ss">25, 27, 28, 29 Aug + 3 Oct</div></div>
+    <div class="sc"><div class="sl">Art 2 triggers</div><div class="sv" style="color:#0b0c0c">5</div><div class="ss">Life at risk</div></div>
+  </div>
+
+  <div class="callout-red">
+    <div class="cl" style="color:#d4351c">Pattern verdict — this dataset</div>
+    <div class="ct">Across 10 officers on 5 separate dates, Ben disclosed autism, PTSD, vulnerability and safeguarding concerns at every contact. No reasonable adjustment record survived a single call. EVANS confirmed on 3 October — 39 days after the 8-call day — that no vulnerability flag exists on the system. The timeline below is not a series of individual failures. It is a documented institutional process of erasure.</div>
+  </div>
+
+  <div class="sh">Chronological admission log — expand each entry</div>
+  <div id="tl-list"></div>
+</div>
+
+<div id="tab-officers" style="display:none">
+  <div class="callout-purple">
+    <div class="cl" style="color:#4c2c92">Officer-by-officer admission summary</div>
+    <div class="ct">Each officer is mapped to their key admission, the legal threshold it engages, and the number of disclosure events they received without acting. The pattern across all ten is identical: receive, acknowledge, fail to record.</div>
+  </div>
+  <div class="officer-grid" id="officer-grid"></div>
+</div>
+
+<div id="tab-pattern" style="display:none">
+  <div class="callout-red">
+    <div class="cl" style="color:#d4351c">Pattern evidence — Igen v Wong burden shift</div>
+    <div class="ct">Under <em>Igen Ltd v Wong</em> [2005] EWCA Civ 142, once a claimant establishes facts from which discrimination could be inferred, the burden shifts to the respondent. The sequence below — across 5 dates, 10 officers and 1 automated system — establishes those facts. Westminster must now explain each zero — not Ben.</div>
+  </div>
+  <div id="pattern-list"></div>
+</div>
+
+<div id="tab-table" style="display:none">
+  <div style="overflow-x:auto">
+    <table>
+      <thead><tr>
+        <th>Date</th><th>Time</th><th>Officer</th><th>Ben disclosed</th><th>Officer admitted</th><th>Legal tag</th>
+      </tr></thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </div>
+</div>
+
+</div>
+
+<div class="disclaimer"><strong>Important notice:</strong> This document is produced by Justice Minds Forensic Intelligence Ltd (Company No. 16331423, ICO Reg. ZB896365), an independent forensic intelligence practice. Not produced by, affiliated with, or endorsed by any government department or Crown institution. © Justice Minds Forensic Intelligence Ltd 2026.</div>
+
+<script>
+const raw=[
+  {date:"2025-08-25",officer:"AL",time:"18:12",role:"Housing Solutions Westminster",ben:"Autism isn't an illness or mental health problem. It's a diagnosis affording reasonable adjustments, not judgment.",admitted:"Sorry, I wouldn't have a full overview of your current circumstances. I only work off the data — your name, DOB, phone number, rough sleeping and autism.",tags:["tag-ea","tag-s188"],key:"Autism on record but no adjustment action taken.",url:"https://grain.com/share/recording/8c1d4f7d-fd14-4f5c-8b47-aace65a175b5/RnRDVCgwuta3gCsQ590pIKxkYYiX73aWG7bPDpuq?t=258"},
+  {date:"2025-08-25",officer:"AL",time:"18:17",role:"Housing Solutions Westminster",ben:"I require a reasonable adjustment duty — statutory duty — sections 20 and 21 of the Equality Act. What reasonable adjustments are in place?",admitted:"I can only see your name, DOB, number, rough sleeping near Victoria. I haven't got your last settled address.",tags:["tag-ea","tag-a3"],key:"Statutory duty invoked verbatim. No response to reasonable adjustment request.",url:"https://grain.com/share/recording/8c1d4f7d-fd14-4f5c-8b47-aace65a175b5/RnRDVCgwuta3gCsQ590pIKxkYYiX73aWG7bPDpuq?t=543"},
+  {date:"2025-08-25",officer:"AL",time:"18:20",role:"Housing Solutions Westminster",ben:"[The Passage in Victoria]",admitted:"It says ASD and mental health. You corrected me and let me know there's no mental health.",tags:["tag-ea","tag-mis"],key:"Officer misrecords disability category. Ben corrects on tape. Misrecording confirmed.",url:"https://grain.com/share/recording/8c1d4f7d-fd14-4f5c-8b47-aace65a175b5/RnRDVCgwuta3gCsQ590pIKxkYYiX73aWG7bPDpuq?t=760"},
+  {date:"2025-08-25",officer:"AL",time:"18:30",role:"Housing Solutions Westminster",ben:"Safeguarding concerns were raised at The Passage — that's why it was not viable. But that's not on your notes.",admitted:"I've written that down. I will send you a follow-up tomorrow.",tags:["tag-ea","tag-mis"],key:"Safeguarding concern not on file. Officer promises follow-up. No follow-up produced.",url:"https://grain.com/share/recording/8c1d4f7d-fd14-4f5c-8b47-aace65a175b5/RnRDVCgwuta3gCsQ590pIKxkYYiX73aWG7bPDpuq?t=1352"},
+  {date:"2025-08-25",officer:"AL",time:"18:32",role:"Housing Solutions Westminster",ben:"Make sure you write in brackets: for safety and disability reasons. Very important.",admitted:"I can write that as well. For safety and disability reasons.",tags:["tag-ea","tag-mis"],key:"Officer verbally confirms note. Note did not survive to next call.",url:"https://grain.com/share/recording/8c1d4f7d-fd14-4f5c-8b47-aace65a175b5/RnRDVCgwuta3gCsQ590pIKxkYYiX73aWG7bPDpuq?t=1446"},
+  {date:"2025-08-27",officer:"JAMES",time:"08:35",role:"Westminster Council",ben:"[Autism, PTSD, vulnerability disclosed]",admitted:"So you vulnerable. Which is due to the autism and PTSD and it stated the kind of reasonable adjustment which I think that was probably what they put into consideration — that was why they put on hold.",tags:["tag-ea","tag-s188"],key:"James acknowledges vulnerability and reasonable adjustment link — but no flag placed.",url:"https://grain.com/share/recording/888ea495-4cdc-4577-aae5-3697f276b95f/BlyztHivp82yR7xwyR2jfExAF9xkcooYREq1jDVa?t=0"},
+  {date:"2025-08-27",officer:"ROGER",time:"15:04",role:"Westminster City Council",ben:"[Homelessness and vulnerability disclosed]",admitted:"I'm a social worker from Westminster Council. I understand you've had problems with housing. You're currently homeless — rough sleeping on the streets, are you?",tags:["tag-ea","tag-a3"],key:"Roger self-identifies as Westminster social worker. Acknowledges homelessness. s.42 Care Act duty personally held.",url:"https://grain.com/share/recording/eed63c84-5080-4b80-a618-338ba3a946ef/fMKCUTI3RQ615MTNU8MnwWCo1KPHNvYxnMocU4bA?t=0"},
+  {date:"2025-08-27",officer:"ROGER",time:"15:46",role:"Westminster City Council",ben:"If the person's at risk — substantial risk or foreseeable preventable harm — there is a duty to safeguard.",admitted:"Who's got the duty to safeguard? Someone you say the social worker has.",tags:["tag-mis","tag-a3"],key:"Roger — a self-identified social worker — deflects his own s.42 Care Act 2014 duty by asking 'who's got the duty?'",url:"https://grain.com/share/recording/eed63c84-5080-4b80-a618-338ba3a946ef/fMKCUTI3RQ615MTNU8MnwWCo1KPHNvYxnMocU4bA?t=2660"},
+  {date:"2025-08-27",officer:"ROGER",time:"15:47",role:"Westminster City Council",ben:"How can a multi-disciplinary meeting say removing me from the house not present risks when I have vulnerable tenant status as per doctor's note?",admitted:"I don't know why they closed your case. Housing didn't feel the risks were high enough to keep you in the property. I'm presuming there was some sort of multidisciplinary meetings.",tags:["tag-mis","tag-a3","tag-a2"],key:"Roger reveals case closed without Ben's involvement. MDT meeting without the subject. Doctor's vulnerable tenant letter overridden.",url:"https://grain.com/share/recording/eed63c84-5080-4b80-a618-338ba3a946ef/fMKCUTI3RQ615MTNU8MnwWCo1KPHNvYxnMocU4bA?t=2700"},
+  {date:"2025-08-28",officer:"GADGE",time:"18:09",role:"Westminster Housing",ben:"In my reasonable adjustments plan the Passage was not an option because of the safety concerns and the risks because I'd already tried five times.",admitted:"I can see all the notes — there hasn't been any updates since then. Hopefully it just hasn't been updated yet.",tags:["tag-ea","tag-mis"],key:"AL's notes from 25 Aug: NOT UPDATED. 3 days later — nothing. Officer passive, tells Ben to call back.",url:"https://grain.com/share/recording/9a7f7522-cbb1-4f67-8d27-653709a37902/VGBSFZMjWedbNFBX1gbhUm1JPSF8LprTkFWOvqbi?t=328"},
+  {date:"2025-08-28",officer:"GADGE",time:"18:11",role:"Westminster Housing",ben:"There's no calls on the other phone and the only missed calls I've had today I know all the people.",admitted:"There's no new updates since then. Hopefully the notes will be updated by 7 o'clock. That's only really the advice I can give you at this time.",tags:["tag-ea","tag-mis"],key:"Second confirmation: no updates. No action taken. Contradicts any claim of attempted contact.",url:"https://grain.com/share/recording/9a7f7522-cbb1-4f67-8d27-653709a37902/VGBSFZMjWedbNFBX1gbhUm1JPSF8LprTkFWOvqbi?t=413"},
+  {date:"2025-08-28",officer:"JAY",time:"19:09",role:"Westminster (Out of Hours)",ben:"I don't know whether the system's been updated yet, but I've got autism.",admitted:"Your name's not been added to the list. The last communication was not today. The last communication to you was several days ago.",tags:["tag-ea","tag-mis"],key:"Not on list. No notes from today. AL, JAMES, GADGE contacts invisible on the system.",url:"https://grain.com/share/recording/855700aa-4a31-4a3f-8a43-125c9e44e9e2/kt1YTa8ykQs120uk57IsCCY9ekyVdzp92hL9At9V?t=307"},
+  {date:"2025-08-28",officer:"JAY",time:"19:14",role:"Westminster (Out of Hours)",ben:"Where's the reasonable adjustment? If the continuous dialogue is obstructed because of homelessness.",admitted:"Then obviously at that point, then it will not help your case in any way, shape or form.",tags:["tag-ea","tag-mis"],key:"Reasonable adjustment request dismissed outright. Officer states non-contact 'will not help your case.'",url:"https://grain.com/share/recording/855700aa-4a31-4a3f-8a43-125c9e44e9e2/kt1YTa8ykQs120uk57IsCCY9ekyVdzp92hL9At9V?t=585"},
+  {date:"2025-08-28",officer:"JAY",time:"19:17",role:"Westminster (Out of Hours)",ben:"You told me before that you were going to add on the system notes.",admitted:"No, I put a note for the call center that you don't meet criteria. I don't need to put that name on that.",tags:["tag-ea","tag-mis"],key:"Refuses to add information. Only records: 'doesn't meet criteria.' Active gate-keeping of the record.",url:"https://grain.com/share/recording/855700aa-4a31-4a3f-8a43-125c9e44e9e2/kt1YTa8ykQs120uk57IsCCY9ekyVdzp92hL9At9V?t=782"},
+  {date:"2025-08-29",officer:"AUTOMATION",time:"09:06",role:"Westminster City Council",ben:"I am disabled and require reasonable adjustments.",admitted:"Escalating to a representative is not currently configured for this agent.",tags:["tag-ea","tag-a3"],key:"Automated system blocks disabled caller from reaching a human. Structural barrier to reasonable adjustment.",url:"https://grain.com/share/recording/c1a7acb3-9bb5-4279-90ec-3b50c8e0360e/VmNv1en6vz4Rv3HUSWQ61X3WKEy9kEo8eP0BtxmM?t=29"},
+  {date:"2025-08-29",officer:"SALEN",time:"09:42",role:"Housing Solutions Westminster",ben:"No notes on your file because the...",admitted:"I will have to actually ask you what your inquiry is because I don't see any notes on your file.",tags:["tag-mis","tag-ea"],key:"Zero notes on file — 4 days after AL's confirmed disclosures and promises.",url:"https://grain.com/share/recording/1309bddd-fb22-4398-9c12-2a3ff36a377a/vNzsIoQduz7x5ULUfsrTEkJY56zJ77gCbM74vvbK?t=361"},
+  {date:"2025-08-29",officer:"SALEN",time:"09:50",role:"Housing Solutions Westminster",ben:"Is there no note on the system about The Passage being a safeguarding concern? That's correct, yes?",admitted:"There isn't.",tags:["tag-mis","tag-ea","tag-a3"],key:"Safeguarding note promised by AL on 25 Aug: gone. Salen confirms absence verbatim.",url:"https://grain.com/share/recording/1309bddd-fb22-4398-9c12-2a3ff36a377a/vNzsIoQduz7x5ULUfsrTEkJY56zJ77gCbM74vvbK?t=863"},
+  {date:"2025-08-29",officer:"SALEN",time:"10:15",role:"Housing Solutions Westminster",ben:"Autism diagnosis and PTSD.",admitted:"Autism. Repeat that for me, the last one. / Ptsd. / Okay. I've submitted that, so hopefully someone should get in contact.",tags:["tag-ea"],key:"Salen makes Ben re-disclose autism and PTSD despite prior disclosures on same system.",url:"https://grain.com/share/recording/1309bddd-fb22-4398-9c12-2a3ff36a377a/vNzsIoQduz7x5ULUfsrTEkJY56zJ77gCbM74vvbK?t=2341"},
+  {date:"2025-08-29",officer:"SALEN",time:"10:16",role:"Housing Solutions Westminster",ben:"Whoever gets it needs to be forewarned of my safeguarding needs by law. What have you wrote?",admitted:"Sir, I have put that the client has safeguarding issues.",tags:["tag-ea","tag-mis"],key:"Salen claims safeguarding recorded. Georgia confirms 14 minutes later: not on profile. Submission evaporated.",url:"https://grain.com/share/recording/1309bddd-fb22-4398-9c12-2a3ff36a377a/vNzsIoQduz7x5ULUfsrTEkJY56zJ77gCbM74vvbK?t=2441"},
+  {date:"2025-08-29",officer:"GEORGIA",time:"10:26",role:"Housing Solutions Westminster",ben:"Are there no reasonable adjustments or autism mentions on the system?",admitted:"There wasn't any notes of that. All I can see was that your Homeless on the day application came through.",tags:["tag-ea","tag-mis","tag-a3","tag-s188"],key:"GEORGIA CONFIRMS: zero disability notes on system at point of s.188 application. This is BMM-01.",url:"https://grain.com/share/recording/924d0390-65c9-4677-a744-6d917265e1f6/ZFDF8CuXOXD7iECNNzgTaDsj9hNbNjX8C8BHI1GK?t=0"},
+  {date:"2025-08-29",officer:"GEORGIA",time:"10:27",role:"Housing Solutions Westminster",ben:"[Salen said she submitted safeguarding 14 minutes ago]",admitted:"Is the safeguarding not on that form?",tags:["tag-ea","tag-mis","tag-s188"],key:"Georgia confirms Salen's 'submission' from 14 minutes earlier is not on the form. Safeguarding absent at point of s.188 application.",url:"https://grain.com/share/recording/924d0390-65c9-4677-a744-6d917265e1f6/ZFDF8CuXOXD7iECNNzgTaDsj9hNbNjX8C8BHI1GK?t=0"},
+  {date:"2025-08-29",officer:"JUDY",time:"10:26",role:"Housing Solutions Westminster",ben:"[Resistance to write safeguarding noted]",admitted:"I find this refusal to write down safeguarding and vulnerable tenant. I find it fascinating that there's such a resistance to write it. Do you know why that is?",tags:["tag-mis","tag-a3","tag-a6"],key:"Judy herself identifies and names the institutional resistance to recording. Self-incriminating institutional observation.",url:"https://grain.com/share/recording/924d0390-65c9-4677-a744-6d917265e1f6/ZFDF8CuXOXD7iECNNzgTaDsj9hNbNjX8C8BHI1GK?t=0"},
+  {date:"2025-08-29",officer:"JUDY",time:"10:27",role:"Housing Solutions Westminster",ben:"So no one can call me today and I could be dead by Monday?",admitted:"So just put it on your notes that then could be dead by Monday. Could you just write that in for me, please?",tags:["tag-a2","tag-a3","tag-mis"],key:"Life at risk disclosed. Officer records 'could be dead by Monday' — Osman operational duty engaged. Real and immediate risk to life acknowledged on tape.",url:"https://grain.com/share/recording/924d0390-65c9-4677-a744-6d917265e1f6/ZFDF8CuXOXD7iECNNzgTaDsj9hNbNjX8C8BHI1GK?t=0"},
+  {date:"2025-08-29",officer:"JUDY",time:"10:28",role:"Housing Solutions Westminster",ben:"[Safeguarding, autism, PTSD, vulnerability disclosed across call]",admitted:"I'm going to leave a very big note saying about your safeguarding issues.",tags:["tag-ea","tag-mis"],key:"Promises 'very big note' about safeguarding. Note never sent — confirmed 1 hour later.",url:"https://grain.com/share/recording/924d0390-65c9-4677-a744-6d917265e1f6/ZFDF8CuXOXD7iECNNzgTaDsj9hNbNjX8C8BHI1GK?t=0"},
+  {date:"2025-08-29",officer:"JUDY",time:"11:33",role:"Housing Solutions Westminster",ben:"Can you send me in the email the notes that you sent to your manager just so I'm aware of what they know.",admitted:"I didn't send any notes. I just gave a general idea of the situation and if we can facilitate an assessment as soon as possible.",tags:["tag-mis","tag-a3"],key:"'Very big note' from 1 hour ago: NEVER SENT. No formal record to manager. Promise to record evaporated.",url:"https://grain.com/share/recording/924d0390-65c9-4677-a744-6d917265e1f6/ZFDF8CuXOXD7iECNNzgTaDsj9hNbNjX8C8BHI1GK?t=0"},
+  {date:"2025-08-29",officer:"MALIK",time:"14:00",role:"Housing Solutions Westminster",ben:"What has been noted down?",admitted:"(condescending noise) Ben has autism. Seeing domestic abuse, seeing drug or intoxicated people triggered him. His brother died two months ago and he's been wearing the same funeral clothes for two weeks. That's what my colleagues put on the system.",tags:["tag-mis","tag-a3","tag-ea"],key:"Malik reads back a degrading, reductive record — mischaracterising vulnerability as spectacle. Condescending tone noted.",url:"https://grain.com/share/recording/2a1c2321-827f-4764-894e-ed5e51ef6a8e/KtkvEStjgFdnM1oVuzfKAYYkgtHdqxh3X7bxUvRR?t=169"},
+  {date:"2025-08-29",officer:"MALIK",time:"14:19",role:"Housing Solutions Westminster",ben:"Section 21 was invalid — Shelter confirmed it. Their legal team confirmed the section 21 was invalid because they'd altered the deposit without consent.",admitted:"Back in 2023 when the first arrear occurred. (made no notes)",tags:["tag-mis"],key:"Malik fails to record the unlawful eviction context — omission on tape.",url:"https://grain.com/share/recording/2a1c2321-827f-4764-894e-ed5e51ef6a8e/KtkvEStjgFdnM1oVuzfKAYYkgtHdqxh3X7bxUvRR?t=1343"},
+  {date:"2025-08-29",officer:"MALIK",time:"14:21",role:"Housing Solutions Westminster",ben:"You've omitted domestic abuse and you've omitted protecting a vulnerable child. Why?",admitted:"So you mentioned that you paid £3,000 and you found out... I think you mentioned you were trapped again up north, dealing with a vulnerable child.",tags:["tag-mis","tag-a3"],key:"Malik deflects from omission challenge. Does not answer why domestic abuse and child vulnerability were omitted.",url:"https://grain.com/share/recording/2a1c2321-827f-4764-894e-ed5e51ef6a8e/KtkvEStjgFdnM1oVuzfKAYYkgtHdqxh3X7bxUvRR?t=1452"},
+  {date:"2025-08-29",officer:"MALIK",time:"14:23",role:"Housing Solutions Westminster",ben:"I was attacked with knives of the parents of the child that I am a guardian to because of her mental health.",admitted:"Yeah, yeah. And you also advised that you were attacked by knives.",tags:["tag-a2","tag-a3","tag-mis"],key:"Malik acknowledges knife attack disclosure. Real and immediate risk to life — Osman operational duty engaged. Acknowledged on tape.",url:"https://grain.com/share/recording/2a1c2321-827f-4764-894e-ed5e51ef6a8e/KtkvEStjgFdnM1oVuzfKAYYkgtHdqxh3X7bxUvRR?t=1524"},
+  {date:"2025-08-29",officer:"MALIK",time:"14:24",role:"Housing Solutions Westminster",ben:"She has diagnosed psychosis. Delusional beliefs. I was trying to flag this as a safeguard concern — notes were not getting taken down or appropriately passed on.",admitted:"Okay. Client advised he was trapped up north in Liverpool in 2023... fled domestic abuse from a family member who had diagnosed psychic ventilation.",tags:["tag-mis","tag-a3"],key:"Malik records 'psychic ventilation' instead of 'psychosis' — another active misrecording on tape.",url:"https://grain.com/share/recording/2a1c2321-827f-4764-894e-ed5e51ef6a8e/KtkvEStjgFdnM1oVuzfKAYYkgtHdqxh3X7bxUvRR?t=1585"},
+  {date:"2025-08-29",officer:"MALIK",time:"14:48",role:"Housing Solutions Westminster",ben:"I've got autism. I shouldn't be telling you this — it should already be known.",admitted:"Explain that you've been diagnosed with autism.",tags:["tag-ea","tag-mis"],key:"Malik instructs Ben to explain his own autism diagnosis — despite it being on the system he confirmed at 14:00.",url:"https://grain.com/share/recording/2a1c2321-827f-4764-894e-ed5e51ef6a8e/KtkvEStjgFdnM1oVuzfKAYYkgtHdqxh3X7bxUvRR?t=3058"},
+  {date:"2025-08-29",officer:"MALIK",time:"14:50",role:"Housing Solutions Westminster",ben:"Autism doesn't just pop out. I shouldn't need to prove disability every single year. That's discrimination.",admitted:"So I wanted to know whether your circumstances, as in if you've been diagnosed with something new. We know you have autism.",tags:["tag-ea","tag-a3"],key:"Malik confirms knowledge of autism then demands re-proof anyway. This is direct evidence of s.20 EA failure.",url:"https://grain.com/share/recording/2a1c2321-827f-4764-894e-ed5e51ef6a8e/KtkvEStjgFdnM1oVuzfKAYYkgtHdqxh3X7bxUvRR?t=3170"},
+  {date:"2025-08-29",officer:"MALIK",time:"14:52",role:"Housing Solutions Westminster",ben:"[Ben challenges medical minimisation]",admitted:"Okay, so when a GP diagnoses a heart condition, they'll put it plainly, such as PTSD or ADHD.",tags:["tag-ea","tag-mis"],key:"Malik draws false analogy between a heart condition and PTSD — medically inaccurate, minimising on tape.",url:"https://grain.com/share/recording/2a1c2321-827f-4764-894e-ed5e51ef6a8e/KtkvEStjgFdnM1oVuzfKAYYkgtHdqxh3X7bxUvRR?t=3305"},
+  {date:"2025-08-29",officer:"MALIK",time:"14:53",role:"Housing Solutions Westminster",ben:"In identity erasure and minimisation of actual harm, you're an expert at that.",admitted:"I don't see how that's discrimination.",tags:["tag-ea","tag-mis","tag-a3"],key:"Malik denies discrimination after a sequence of disability minimisation, re-proof demands and medical misrecording — all on tape.",url:"https://grain.com/share/recording/2a1c2321-827f-4764-894e-ed5e51ef6a8e/KtkvEStjgFdnM1oVuzfKAYYkgtHdqxh3X7bxUvRR?t=3361"},
+  {date:"2025-08-29",officer:"MALIK",time:"14:55",role:"Housing Solutions Westminster",ben:"I think there's like now three practitioners who've been informed like, I could die.",admitted:"[No dispute or correction recorded]",tags:["tag-a2","tag-a3"],key:"Ben establishes Osman knowledge chain: three practitioners now informed of risk to life. Malik does not dispute.",url:"https://grain.com/share/recording/2a1c2321-827f-4764-894e-ed5e51ef6a8e/KtkvEStjgFdnM1oVuzfKAYYkgtHdqxh3X7bxUvRR?t=3497"},
+  {date:"2025-08-29",officer:"MALIK",time:"14:57",role:"Housing Solutions Westminster",ben:"So I dropped stuff in the road the other day and then nearly got run over by a bus.",admitted:"[Acknowledged — no safeguarding action taken]",tags:["tag-a2","tag-a3"],key:"Physical deterioration from rough sleeping causing near-fatal incident. Bus near-miss disclosed to officer. No safeguarding referral.",url:"https://grain.com/share/recording/2a1c2321-827f-4764-894e-ed5e51ef6a8e/KtkvEStjgFdnM1oVuzfKAYYkgtHdqxh3X7bxUvRR?t=3600"},
+  {date:"2025-08-29",officer:"MALIK",time:"14:58",role:"Housing Solutions Westminster",ben:"Vulnerability with mobility is dwindling — I keep getting dizzy, dropping things, disorientated.",admitted:"No, no, no. I've written that down. Such as dropping.",tags:["tag-a3","tag-mis"],key:"Malik reduces mobility crisis to the word 'dropping.' Physical deterioration minimised on tape.",url:"https://grain.com/share/recording/2a1c2321-827f-4764-894e-ed5e51ef6a8e/KtkvEStjgFdnM1oVuzfKAYYkgtHdqxh3X7bxUvRR?t=3641"},
+  {date:"2025-08-29",officer:"MALIK",time:"15:08",role:"Housing Solutions Westminster",ben:"Write what I've just told you. This is what I'm saying to you about your behaviour.",admitted:"Applicant sent a video of him and a vulnerable child asking for help. They did not respond.",tags:["tag-mis","tag-a3"],key:"Malik records non-response to a child welfare video. Westminster's failure to respond to safeguarding evidence — on tape.",url:"https://grain.com/share/recording/2a1c2321-827f-4764-894e-ed5e51ef6a8e/KtkvEStjgFdnM1oVuzfKAYYkgtHdqxh3X7bxUvRR?t=4279"},
+  {date:"2025-10-03",officer:"EVANS",time:"12:56",role:"Housing Solutions Westminster",ben:"It's your duty to provide interim emergency housing under s.188 — reason to believe today that subject is homeless.",admitted:"I can see that application was rejected. I will send an email to the caseworker. I can advise if the client is able to go to The Passage and report himself as homeless.",tags:["tag-s188","tag-a3","tag-mis"],key:"Evans redirects to The Passage — the same venue flagged as a safeguarding concern across multiple prior calls. Non-response to s.188 mandatory duty.",url:"https://grain.com/share/recording/cef3a43e-6d2e-47df-a468-fe1889388cb4/hTEfR2X6alMn2te94FGJYQrO4bCdLjyAwc1J9MnK?t=3523"},
+  {date:"2025-10-03",officer:"EVANS",time:"13:00",role:"Housing Solutions Westminster",ben:"Is there a vulnerability flag on this account — yes or no?",admitted:"I don't see any flag on the system, no.",tags:["tag-ea","tag-mis","tag-a3","tag-s188"],key:"EVANS CONFIRMS: 39 days after the 8-call day, zero vulnerability flag on system. The erasure is total and documented.",url:"https://grain.com/share/recording/cef3a43e-6d2e-47df-a468-fe1889388cb4/hTEfR2X6alMn2te94FGJYQrO4bCdLjyAwc1J9MnK?t=3776"}
+];
+
+const officers={
+  AL:{role:"Housing Solutions Westminster",count:5,key:"Confirmed autism on record, promised 'for safety and disability reasons' note — note gone by 29 Aug.",tags:["tag-ea","tag-mis"]},
+  JAMES:{role:"Westminster Council",count:1,key:"Confirmed autism + PTSD + reasonable adjustments ON the system. Proves data existed before erasure.",tags:["tag-ea","tag-s188"]},
+  ROGER:{role:"Westminster City Council (Social Worker)",count:3,key:"Self-identifies as Westminster social worker — personally holds s.42 Care Act duty. Deflects own duty: 'Who's got the duty to safeguard?' Reveals case closed without Ben, MDT without subject, despite doctor's vulnerable tenant letter.",tags:["tag-mis","tag-a3","tag-a2"]},
+  GADGE:{role:"Westminster Housing",count:2,key:"Confirmed AL's notes NOT updated 3 days later. Passive — told Ben to call back. No action taken.",tags:["tag-ea","tag-mis"]},
+  JAY:{role:"Westminster (Out of Hours)",count:3,key:"Confirmed not on list. Dismissed reasonable adjustment request. Refused to add information — only recorded 'doesn't meet criteria.'",tags:["tag-ea","tag-mis","tag-s188"]},
+  AUTOMATION:{role:"Westminster CC (Automated System)",count:1,key:"Disabled caller explicitly requests reasonable adjustments. System blocks access to human. Structural barrier.",tags:["tag-ea","tag-a3"]},
+  SALEN:{role:"Housing Solutions Westminster",count:4,key:"Confirmed zero notes 4 days after disclosures. Made Ben re-disclose autism and PTSD. Claims safeguarding submitted — gone within 14 minutes.",tags:["tag-ea","tag-mis"]},
+  GEORGIA:{role:"Housing Solutions Westminster",count:2,key:"CONFIRMED at point of s.188 application: no disability notes on system. Salen's safeguarding submission not on form. This is BMM-01.",tags:["tag-ea","tag-mis","tag-s188"]},
+  JUDY:{role:"Housing Solutions Westminster",count:4,key:"Named institutional resistance to recording. Recorded 'could be dead by Monday.' Promised 'very big note' — confirmed 1 hour later: 'I didn't send any notes.'",tags:["tag-a2","tag-a3","tag-mis"]},
+  MALIK:{role:"Housing Solutions Westminster",count:13,key:"Medical misrecording × 2 (including 'psychic ventilation' for psychosis — corrected on tape, correction never recorded), re-proof demands, discrimination denial, 'dropping' minimisation, knife attack acknowledged, bus near-miss disclosed, Osman knowledge chain established. Most extensive individual record.",tags:["tag-ea","tag-mis","tag-a3","tag-a2"]},
+  EVANS:{role:"Housing Solutions Westminster",count:2,key:"39 days after 8-call day: confirms zero vulnerability flag. Redirects to safeguarding-flagged venue. Erasure confirmed.",tags:["tag-ea","tag-mis","tag-s188"]}
+};
+
+const patterns=[
+  {label:"25 Aug — AL promises notes",outcome:"ERASED",detail:"AL confirms 'for safety and disability reasons' verbally at 18:32. By 29 Aug, SALEN confirms no safeguarding note on system.",color:"#d4351c"},
+  {label:"25 Aug — AL promises follow-up email",outcome:"NEVER SENT",detail:"AL commits to follow-up email at 18:30. No email in disclosure. Not referenced by any subsequent officer.",color:"#d4351c"},
+  {label:"27 Aug — James confirms disability data ON system",outcome:"DATA EXISTED",detail:"James confirms autism, PTSD and reasonable adjustments are stated on the system. This proves the data existed before it was erased.",color:"#4c2c92"},
+  {label:"27 Aug — Roger (social worker) deflects own s.42 duty",outcome:"SELF-INCRIMINATION",detail:"Roger self-identifies as 'a social worker from Westminster Council.' s.42 Care Act 2014 duty sits with the local authority — which Roger personally represents. He deflects his own statutory obligation.",color:"#d4351c"},
+  {label:"27 Aug — Roger reveals case closed without Ben",outcome:"PROCEDURAL BREACH",detail:"Roger reveals MDT meeting took place and case was closed without Ben's involvement, despite doctor's vulnerable tenant letter. s.6 Care Act duty to cooperate breached.",color:"#d4351c"},
+  {label:"28 Aug — Gadge confirms notes not updated",outcome:"ERASURE IN PROGRESS",detail:"3 days after AL 'wrote it down.' Gadge: 'There hasn't been any updates since then.' The data James confirmed on 27 Aug AM is already invisible by 28 Aug PM.",color:"#d4351c"},
+  {label:"28 Aug — Jay refuses to add information",outcome:"ACTIVE GATE-KEEPING",detail:"Jay confirms Ben not on list, dismisses reasonable adjustment request, refuses to record: 'I don't need to put that name on that.' Only note: 'doesn't meet criteria.'",color:"#d4351c"},
+  {label:"29 Aug — Automated system blocks disabled caller",outcome:"STRUCTURAL BARRIER",detail:"Ben states 'I am disabled and require reasonable adjustments.' System: 'Escalating to a representative is not currently configured.' Disabled person denied human contact.",color:"#d4351c"},
+  {label:"29 Aug — Salen confirms zero notes (4 days later)",outcome:"CONFIRMED ERASURE",detail:"'I don't see any notes on your file.' 'There isn't.' — Salen confirms total erasure of all prior disclosures including those James confirmed were on the system.",color:"#d4351c"},
+  {label:"29 Aug — Georgia confirms zero at s.188 application",outcome:"STATUTORY BREACH",detail:"At the precise moment of s.188 application, Georgia confirms no disability notes. The mandatory duty is triggered without the disability record that would determine the adjustment required.",color:"#d4351c"},
+  {label:"29 Aug — Judy names institutional resistance",outcome:"SELF-INCRIMINATION",detail:"'I find it fascinating that there's such a resistance to write it.' Judy identifies the institutional pattern herself on tape.",color:"#4c2c92"},
+  {label:"29 Aug — 'Could be dead by Monday' — Art 2 engaged",outcome:"OSMAN DUTY",detail:"Ben: 'It makes me want to end my life. It could kill me.' Judy records 'could be dead by Monday' on notes. Knife attack disclosed. Bus near-miss disclosed. Real and immediate risk to life acknowledged by officer. Osman operational duty engaged.",color:"#d4351c"},
+  {label:"29 Aug — Judy promises 'very big note'",outcome:"NEVER SENT",detail:"Judy: 'I'm going to leave a very big note saying about your safeguarding issues.' 1 hour later: 'I didn't send any notes. I just gave a general idea.' Promise to record evaporated within 60 minutes — on tape.",color:"#d4351c"},
+  {label:"29 Aug — Malik records 'psychic ventilation'",outcome:"ACTIVE MISRECORDING",detail:"Ben clearly states 'diagnosed psychosis. Delusional beliefs.' Malik records 'psychic ventilation.' Ben corrects. Malik repeats correctly — original note unchanged. Safeguarding-critical diagnosis garbled on tape.",color:"#d4351c"},
+  {label:"3 Oct — Evans confirms zero vulnerability flag",outcome:"ERASURE TOTAL",detail:"39 days after the 8-call day. Zero flag. 10 officers across 5 dates. The system shows nothing.",color:"#d4351c"}
+];
+
+const grainSegments={
+  0:`Ben Mak: Say that last bit again. AL Housing solutions Westminster: Sorry, I wouldn't have a full overview of your current circumstances. I'm not a caseworker, so I only work off based on the data that's been given to me, which is this information I just told Deny your date of birth, your phone number, that you've been rough sleeping and that you've got autism. Ben Mak: Okay, well, with autism we've just corrected and I understand you're a case holder, but why? And who referred you to. Who refer`,
+  1:`AL Housing solutions Westminster: Yeah, I can. I. I can only see that your name, your date of birth and as I said, your number and your current circumstances start to say rough sleeping. You've got autism and you're rough sleeping near Victoria. But I haven't got the address of where you were lasting your last settled address. Ben Mak: That's fine, but are you telling me whoever was taking that call didn't ask? Are you?`,
+  2:`Ben Mak: I can tell you who. AL Housing solutions Westminster: Yeah, I can. I can tell you who's done the assessment. It was Christiana who emailed this to us, to my team, the Caseworks Report team. I've got your name, your date of birth, that you're rough sleeping at the moment, your phone number, and you've got autism. It says ASD and mental health. You corrected me and let me know there's no mental health.`,
+  3:`AL Housing solutions Westminster: Yeah. Client. Yeah, I've written that down. But I will send. Yeah, you provide me with the email. I will send you a follow up tomorrow. No worries. And then I would just like to make sure that you know that we do offer clients telephone appointments if they would prefer that. Ben Mak: So what does that mean? AL Housing solutions Westminster: Do that anywhere that you feel safe. Ben Mak: What does that mean? AL Housing solutions Westminster: Kind of an assessment`,
+  4:`Ben Mak: Yeah. And please, on where it was in Bible, make sure you write in brackets for safety and disability reasons. Very important. AL Housing solutions Westminster: I can all write that as well. For safety and disability reasons. Ben Mak: Yes. AL Housing solutions Westminster: Not viable. For safety and. AL Housing solutions Westminster: Okay, I have done that. What I will do is I will take this up with my manager and I will also speak to the contact center in regards to who referred you an`,
+  5:`AUTOMATION: Welcome to the City of Westminster Council's Revenues and Benefits Service. Your information will only be used so we can deal with your inquiry and may be shared across departments within the council or with other organizations if it is necessary to do so. For more information on how your information is processed, please Visit our website, www.westminster.gov.uk.`,
+  6:`MR. MAK  Justice Minds Forensic Intelligence Ltd. Judicial Appointment Score 84%: Should be trying to come in. Muschett, Roger: WCC: Okay, that's it. MR. MAK  Justice Minds Forensic Intelligence Ltd. Judicial Appointment Score 84%: Yeah, that's. That's my transcribe. So you can just. Just, just stop. It's me. So just stop the video because it's just gonna give me the transcript. Muschett, Roger: WCC: Is this a full up? MR. MAK  Justice Minds Forensic Intelligence Ltd. Judicial Appointment Score `,
+  7:`Muschett, Roger: WCC: Who's got the duty to safeguard? Someone you say the social worker has. MR. MAK  Justice Minds Forensic Intelligence Ltd. Judicial Appointment Score 84%: Yeah. Muschett, Roger: WCC: Or if they're going to be made homeless. MR. MAK  Justice Minds Forensic Intelligence Ltd. Judicial Appointment Score 84%: If there is a person under receipt of care, I. E. Me, if that person is presumed under Safeguarding act to be at risk of harm or foreseeable danger, that can be prevented, t`,
+  8:`Muschett, Roger: WCC: Why did they close your case? I mean, the answer is I, I don't know why they closed your case. I mean Housing it seems didn't feel that the risks were high enough to keep you in the property. I'm presuming there was some sort of multidisciplinary meetings that took place but that should have involved. MR. MAK  Justice Minds Forensic Intelligence Ltd. Judicial Appointment Score 84%: But that should have involved me. And how can a multi disciplinary meeting say removing me fr`,
+  15:`Ben Mak: No notes on your file because the. Salen Westminster Housing Solutions: Call was not finished. So again, I will have to actually ask you what your inquiry is because I don't see any notes on your file. Ben Mak: Okay, so you have zero notes at all on my file? Salen Westminster Housing Solutions: Not from today, sir, I'm asking about your inquiry. Ben Mak: The inquiry is the same from. From. From last year, sadly. And no. And no one seems to be transferring these notes. If you could do me`,
+  16:`Salen Westminster Housing Solutions: There isn't. Ben Mak: Okay, so that's what I'm saying. So there is no note on there that the passage is a safeguarding risk for me? Salen Westminster Housing Solutions: No. Ben Mak: Okay, so I'll inform you. I can't go to the passage. It's dangerous. There's been harm and distress caused. I've tried to go five times. Salen Westminster Housing Solutions: Okay, so if you cannot go to the passage, then will you be able to then complete the homeless application y`,
+  17:`Salen Westminster Housing Solutions: Autism. Repeat that for me, the last one. Ben Mak: Ptsd. Salen Westminster Housing Solutions: Ptsd. Ben Mak: P for Peter, T for Tommy, S for Sugar, D for dementia. Salen Westminster Housing Solutions: Post traumatic. Ben Mak: Post traumatic stresses. Right, so just like this for me. Post Traumatic stress disorder right now. Salen Westminster Housing Solutions: Okay. Ptsd. Thank you so much. All right, that's fine, thank you. I've submitted that, so hopefully `,
+  18:`Salen Westminster Housing Solutions: Sir, I have put that the client has safeguarding issues. Ben Mak: No, no, it's not safeguarding issues, because that's problematic. Salen Westminster Housing Solutions: Okay? Ben Mak: No, no, no. Right. Salen Westminster Housing Solutions: I'm really. I'm really trying to help you, but I would also appreciate if you do not speak over me. Okay? I am trying to help. One second. Let me finish, please. This is an emergency accommodation form. It is literally just`,
+  19:`Ben Mak: Hello? Georgia Westminster Housing Solutions: Hi, good morning. Am I speaking to Ben Mack? Ben Mak: Who's speaking, please? Georgia Westminster Housing Solutions: Hi, my name is Georgia and I'm calling you from Westminster City Council Housing Solutions. Ben Mak: Oh, hello. How are you? Georgia Westminster Housing Solutions: Hi. I'm. Not too bad on yourself? Ben Mak: I've been better, but, you know. Judy Westminster Housing Solutions: Yeah.`,
+  20:`Ben Mak: Hello? Georgia Westminster Housing Solutions: Hi, good morning. Am I speaking to Ben Mack? Ben Mak: Who's speaking, please? Georgia Westminster Housing Solutions: Hi, my name is Georgia and I'm calling you from Westminster City Council Housing Solutions. Ben Mak: Oh, hello. How are you? Georgia Westminster Housing Solutions: Hi. I'm. Not too bad on yourself? Ben Mak: I've been better, but, you know. Judy Westminster Housing Solutions: Yeah.`,
+  21:`Ben Mak: Hello? Georgia Westminster Housing Solutions: Hi, good morning. Am I speaking to Ben Mack? Ben Mak: Who's speaking, please? Georgia Westminster Housing Solutions: Hi, my name is Georgia and I'm calling you from Westminster City Council Housing Solutions. Ben Mak: Oh, hello. How are you? Georgia Westminster Housing Solutions: Hi. I'm. Not too bad on yourself? Ben Mak: I've been better, but, you know. Judy Westminster Housing Solutions: Yeah.`,
+  22:`Ben Mak: Hello? Georgia Westminster Housing Solutions: Hi, good morning. Am I speaking to Ben Mack? Ben Mak: Who's speaking, please? Georgia Westminster Housing Solutions: Hi, my name is Georgia and I'm calling you from Westminster City Council Housing Solutions. Ben Mak: Oh, hello. How are you? Georgia Westminster Housing Solutions: Hi. I'm. Not too bad on yourself? Ben Mak: I've been better, but, you know. Judy Westminster Housing Solutions: Yeah.`,
+  23:`Ben Mak: Hello? Georgia Westminster Housing Solutions: Hi, good morning. Am I speaking to Ben Mack? Ben Mak: Who's speaking, please? Georgia Westminster Housing Solutions: Hi, my name is Georgia and I'm calling you from Westminster City Council Housing Solutions. Ben Mak: Oh, hello. How are you? Georgia Westminster Housing Solutions: Hi. I'm. Not too bad on yourself? Ben Mak: I've been better, but, you know. Judy Westminster Housing Solutions: Yeah.`,
+  24:`Ben Mak: Hello? Georgia Westminster Housing Solutions: Hi, good morning. Am I speaking to Ben Mack? Ben Mak: Who's speaking, please? Georgia Westminster Housing Solutions: Hi, my name is Georgia and I'm calling you from Westminster City Council Housing Solutions. Ben Mak: Oh, hello. How are you? Georgia Westminster Housing Solutions: Hi. I'm. Not too bad on yourself? Ben Mak: I've been better, but, you know. Judy Westminster Housing Solutions: Yeah.`,
+  25:`Malik Westminster Housing Solutions: (condescending noise) Okay, let's see. This was repeated alreay(autism- condecending) but. So Ben has autism. Seeing domestic abuse, seeing drug or intoxicated people who are hardly dressed triggered him. His brother died two months ago and he's been wearing the same funeral clothes for two weeks. That's what my colleagues put on the system. Ben Mak: Yeah, and also there should have been on there. I have tried to come to the Passage five times before, that's `,
+  26:`Malik Westminster Housing Solutions: Back in 2023 when the first arrear occurred.(made no notes) Malik Westminster Housing Solutions: So you were not made aware at the time of the arrear Ben Mak: Right. Sorry, there's a bit of a gap. So just to. I haven't really made sense, you of your notes. So applicant was followed home, reported it. Nothing happened them from there on.`,
+  27:`Malik Westminster Housing Solutions: So you mentioned that you paid £3,000 and you found out, but they didn't respond. And then you. I think you mentioned that you were trapped again up north, dealing with a vulnerable child Malik Westminster Housing Solutions: and domestics. Ben Mak: Yeah, with what? Sorry? Malik Westminster Housing Solutions: With domestics. Ben Mak: Why would you ommit abuse? Domestics is what you literally are like omitting out the critical words that like make me eligible a`,
+  28:`Ben Mak: I was fleeing from a family member who had psychosis and was responsible for a child Ben Mak: as I was trying to protect a child. Malik Westminster Housing Solutions: Sorry, say the last bit again. Ben Mak: I was attacked with knives of the parents of the child that I am a guardian to because of her mental health.`,
+  29:`Malik Westminster Housing Solutions: Okay. Okay. So start from the beginning. So, client advised that he was trapped up in north in Liverpool in 2023 when the first array occurred. He was not aware at the time he paid £3,000. When he found out that they didn't respond, he got tracked again up north dealing with a vulnerable child and fled domestic abuse from a family member who had diagnosed psychosis delusions Ben Mak: That's hyper. Diagnosis of psychosis.`,
+  30:`Ben Mak: Support letter for what? Malik Westminster Housing Solutions: Explain that you've been diagnosed with autism. Ben Mak: When and what does it say? Malik Westminster Housing Solutions: I'm writing on behalf of Mr. Mac, who has had frequent input for a number of mental health difficulties, including recent diagnosis of autistic spectrum disorder and a pending assessment for ADHD. Mr. Mac states that this has been exacerbated by a complex family situation, which has been a challenging and e`,
+  31:`Malik Westminster Housing Solutions: So I wanted to know whether your circumstances, as in if you've been diagnosed with something new. We know you have autism. Ben Mak: What you would love nothing More than mental health to be on there when I not mentally unwell. I am mentally solid. You don't have to listen. What do you want to hear if it's not there? Malik Westminster Housing Solutions: This letter is from August 2023. We are in 2025 now. Ben Mak: That means nothing. Physical health. But what`,
+  32:`Malik Westminster Housing Solutions: Okay, so when a GP diagnose a heart condition, they'll put it plainly, such as PTSD or adhd. Ben Mak: Wait there, look, look. You've just done it again. Malik Westminster Housing Solutions: So this. Ben Mak: You put pl. You put. You put plainly autism, a registered diagnostics and cut feet and PTSD from being attacked with knives. You put it plainly. Malik Westminster Housing Solutions: So this is what your GP has put down.`,
+  33:`Malik Westminster Housing Solutions: I don't see how that's discrimination. Ben Mak: Well, you wouldn't, because you're totally able, aren't you? Malik Westminster Housing Solutions: Okay, so you're just assuming things about me. You don't know me, so that's you. Ben Mak: Making a. I'm not assuming. I'm giving you factual response. Malik Westminster Housing Solutions: So you're assuming that I'm able to. You don't know anything about my background. That's an assumption made. Ben Mak: Okay, so wh`,
+  34:`Ben Mak: Sorry. Malik Westminster Housing Solutions: hmm dunno if she said that..So I was. I was next to her when you had the call. I didn't hear that come out of her mouth. Pretty sure she didn't say that. Ben Mak: Okay, so you're confirming as a witness that you sat next to Judy and she didn't say that? Malik Westminster Housing Solutions: Yeah. Ben Mak: Okay, great. That's all I needed. Malik Westminster Housing Solutions: Yeah, I was there when the call was made.`,
+  35:`Ben Mak: So I dropped stuff in the road the other day and then nearly got run over by a bus scurrying to get those things because I'm always scurrying around looking for safety and looking for a place to have some privacy to take calls. Malik Westminster Housing Solutions: And do you use any mobility aids? Ben Mak: So can you just repeat the last bit for me? What I said? Malik Westminster Housing Solutions: Applicant advised that he gets there unitari disorientated. Ben Mak: Such as dropping thi`,
+  36:`Ben Mak: So let's just ignore what I've just said, okay? Malik Westminster Housing Solutions: No, no, no, no. So I've written that down. Such as dropping. Ben Mak: But you haven't repeated. Malik Westminster Housing Solutions: Yeah, I haven't repeated it because he asked me to repeat it. I'll repeat it now. Such as dropping things as losing his belongings. What I want to know specifically, are you able to manage sed. Can you walk upstairs on your own without anyone assisting you or that any mobi`,
+  37:`Ben Mak: And then repeat to me what I've said. Malik Westminster Housing Solutions: So applicants sent a video of him and a vulnerable child asking for help. They did not respond. Ben Mak: Yes. Shortly after the £850 in credit, as you've already wrote. Yeah, yeah. He didn't respond. So I said yes, I know what I'm saying. So whatever you want. Next.`,
+  38:`WESTMINSTER OFFICER EVAN HOUSING SOLUTIONS: Okay, that's fine. So what I'm going to have to do is I can see that application was rejected. So I will send an email to the caseworker who obviously will be dealing with it. I can advise if the client is able to go to the passage and report himself as homeless. That's also going to be a good idea as well. Ben Mak: So client has got autism and safeguarding needs. They have attempted to go through the passage sick six times and that is a state guardian`,
+  39:`WESTMINSTER OFFICER EVAN HOUSING SOLUTIONS: I don't see any flag on the system, no. Ben Mak: So there is no awareness that this client is a vulnerable client.`,
+  9:`Gadge- Westminster Housing: Hello. Thank you for being patient with me. Right, so I can see all the notes then, that, that they tried to contact you regarding a telephone assessment and, but they could get a hold of you and they tried three times, which was the last one was on the 26th of this month. There hasn't been any updates since then. So what would probably be best then? Because like you mentioned, it said to try. I believe you said someone tried to get a hold of Westminster Housing so th`,
+  10:`Ben Mak: Okay and just because I know I haven't spoke to Roger in my reasonable adjustments plan passage was not an option because of the safety concerns and the risks because I'd already tried five times so when they did call me they been carried out of a partial assessment and then said don't you want to call me back? I've not had any calls today I'm just looking at. So I don't know what number they've been phone and because I've got no. Gadge- Westminster Housing: Missed calls so so this, so `,
+  11:`Jay Westminster Housing: Your name's not been added to the list as somebody that we will be able to assist. And I've just had a look on the notes as well on the system for you. The last communication was not today. The last communication to you, which they tried to call you, was several days ago. Ben Mak: Who is they? Jay Westminster Housing: There is the day services. Who's the day services. Ben Mak: Who is that?`,
+  12:`Jay Westminster Housing: Then obviously at that point, then it will not help your case in any way, shape or form. Ben Mak: Okay, so if you're struggling and unable to make a phone call because of the harms and the risks, then you're not eligible for support. Jay Westminster Housing: If you can't actually speak to them over the phone, you can actually go to the offices they are open. Ben Mak: Sir, I don't know where they are. Jay Westminster Housing: You would have to ask them during the day when`,
+  13:`Jay Westminster Housing: I don't need to put that name on that. Ben Mak: I'm asking you. Jay Westminster Housing: Information that's actually in there is just for homelessness and it's nothing. Ben Mak: Okay. It's okay. So just for the record then. And then I'll let you go because I can see that you're obviously not willing to cooperate. On this. So you are not willing to cooperate if you. Jay Westminster Housing: If you communicate with the data services. We can help you further, sir. Ben Mak: `,
+  14:`Automachine Response: Escalating to a representative is not currently configured for this agent. However, this is where the agent could provide information about how to get in touch with someone another way. Is there anything else I can help you with? Automachine Response: I'm sorry, I'm not sure how to help with that. Can you try rephrasing?`,
+};
+
+const exhibitMap={
+  0:[{i:444,title:"High Court Injunction Officer — Reasonable Adjustment Denial Exposed",bcol:"#c70000"},{i:530,title:"Autism Assessment: Ben Sonny Mak — Diagnosed with Clinical Autism",bcol:"#c70000"}],
+  1:[{i:444,title:"High Court Injunction Officer — Reasonable Adjustment Denial Exposed",bcol:"#c70000"},{i:717,title:"Email: Ben Maki — Formal Reasonable Adjustments Application",bcol:"#c70000"}],
+  2:[{i:148,title:"Email Chain: Sue Fazackerley — Mental Health Support Failures Highlighted",bcol:"#c70000"}],
+  5:[{i:1627,title:"Medical Transcript: Dr. Hayley Confirms PTSD and Autism Diagnosis",bcol:"#c70000"}],
+  6:[{i:568,title:"Police Transcript: Roger Ben — Homelessness Evidence & Official Neglect",bcol:"#c70000"},{i:119,title:"Transcript: Roger-Ben — Confirms Housing Issue Discussed With Social Services",bcol:"#c70000"},{i:549,title:"Transcript: Roger Westminster vs Ben Mak — Confirmed Housing Discussion",bcol:"#c70000"}],
+  7:[{i:119,title:"Transcript: Roger-Ben — Confirms Housing Issue Discussed With Social Services",bcol:"#c70000"},{i:552,title:"Recording Transcript: Ben Queries Roger on Housing Removal Protocol",bcol:"#c70000"}],
+  8:[{i:119,title:"Transcript: Roger-Ben — Confirms Housing Issue Discussed With Social Services",bcol:"#c70000"},{i:549,title:"Transcript: Roger Westminster vs Ben Mak — Confirmed Housing Discussion",bcol:"#c70000"}],
+  13:[{i:424,title:"Email Transcript: Ben Mak — Refusal to Record Housing Vulnerabilities",bcol:"#1d70b8"}],
+  14:[{i:114,title:"HMCTS Letter: Denies Reasonable Adjustments — Systematic Discrimination",bcol:"#c70000"},{i:720,title:"High Court Injunction Officer: Denies Reasonable Adjustment for Disabled Person",bcol:"#c70000"}],
+  17:[{i:1627,title:"Medical Transcript: Dr. Hayley Confirms PTSD and Autism Diagnosis",bcol:"#c70000"}],
+  19:[{i:590,title:"Audio Transcript: Westminster Officer Georgia Presses Appointment Despite Disclosure",bcol:"#c70000"}],
+  20:[{i:590,title:"Audio Transcript: Westminster Officer Georgia Presses Appointment Despite Disclosure",bcol:"#c70000"}],
+  21:[{i:122,title:"Call Transcript: Judy Westminister Housing — Proof of False Death Claim",bcol:"#c70000"},{i:419,title:"BM-38 Transcript: Judy Westminster Housing Solutions — Appointment Refused",bcol:"#c70000"}],
+  22:[{i:122,title:"Call Transcript: Judy Westminister Housing — Proof of False Death Claim",bcol:"#c70000"},{i:419,title:"BM-38 Transcript: Judy Westminster Housing Solutions — Appointment Refused",bcol:"#c70000"}],
+  23:[{i:122,title:"Call Transcript: Judy Westminister Housing — Proof of False Death Claim",bcol:"#c70000"},{i:419,title:"BM-38 Transcript: Judy Westminster Housing Solutions — Appointment Refused",bcol:"#c70000"}],
+  24:[{i:122,title:"Call Transcript: Judy Westminister Housing — Proof of False Death Claim",bcol:"#c70000"},{i:419,title:"BM-38 Transcript: Judy Westminster Housing Solutions — Appointment Refused",bcol:"#c70000"}],
+  25:[{i:135,title:"Transcript: Ben Malik — Discusses Unsubstantiated Complaint and Safeguarding",bcol:"#c70000"}],
+  26:[{i:1590,title:"Shelter Letter: Ben Mak's Short Tenancy Notice Invalid",bcol:"#1d70b8"}],
+  28:[{i:386,title:"Transcript: Ben Man — Attacked with Knives over Child Guardianship Dispute",bcol:"#e6931f"}],
+  29:[{i:157,title:"Police Report: Ben — Psychosis Claim Rejected, No Records Found",bcol:"#c70000"}],
+  37:[{i:587,title:"Email: Helen Evans — Acknowledges Advocacy for Autistic Parents' Rights",bcol:"#c70000"},{i:1079,title:"Justice Minds Letter: Helen Evans — Autistic Rights Ignored",bcol:"#c70000"}],
+  38:[{i:587,title:"Email: Helen Evans — Acknowledges Advocacy for Autistic Parents' Rights",bcol:"#c70000"},{i:1079,title:"Justice Minds Letter: Helen Evans — Autistic Rights Ignored",bcol:"#c70000"}]
+};
+
+function buildTimeline(){
+  const days={};
+  raw.forEach((r,gi)=>{r._gi=gi;if(!days[r.date])days[r.date]=[];days[r.date].push(r);});
+  let html='';
+  Object.keys(days).sort().forEach(d=>{
+    const label={
+      "2025-08-25":"25 August 2025 — First contact day",
+      "2025-08-27":"27 August 2025 — James & Roger",
+      "2025-08-28":"28 August 2025 — Gadge & Jay (erasure confirmed)",
+      "2025-08-29":"29 August 2025 — The 8-call day",
+      "2025-10-03":"3 October 2025 — Evans (39 days later)"
+    }[d]||d;
+    html+=`<div class="tl-day">${label}<span class="tl-day-count">${days[d].length} admission${days[d].length>1?'s':''}</span></div>`;
+    days[d].forEach((r,i)=>{
+      const gi=r._gi;
+      const id=`tl_${d}_${i}`;
+      const dotIdx=r.admitted.indexOf('.');
+      const preview=dotIdx>0&&dotIdx<130?r.admitted.substring(0,dotIdx+1):(r.admitted.length>90?r.admitted.substring(0,r.admitted.lastIndexOf(' ',90))+'…':r.admitted);
+      const harmSentIdx=r.key.indexOf('.');
+      const harmWhy=harmSentIdx>0?r.key.substring(0,harmSentIdx+1):r.key;
+      const harmTags=r.tags.map(t=>`<span class="tag ${t}" style="font-size:9px;padding:1px 5px">${t.replace('tag-','').replace('mis','Misfeasance').replace('ea','EA').replace('s188','S.188').replace('a3','Art 3').replace('a2','Art 2').replace('a6','Art 6')}</span>`).join('');
+      const exs=exhibitMap[gi]||[];
+      const exHtml=exs.length?`<div class="exhibit-strip">
+        <div class="exhibit-strip-label">&#9670; Linked evidence (${exs.length} exhibit${exs.length>1?'s':''})</div>
+        <div class="exhibit-thumbs">${exs.map(e=>`<a class="exhibit-thumb" href="http://localhost:7070/evidence/evidentiary-gallery.html" target="_blank" title="${e.title}">
+          <img src="http://localhost:7072/img/${e.i}?size=thumb" alt="Exhibit ${e.i}" onerror="this.style.background='#ddd';this.removeAttribute('src')">
+          <div class="exhibit-thumb-meta">
+            <span class="exhibit-thumb-badge" style="background:${e.bcol}">Exhibit ${e.i}</span>
+            <div class="exhibit-thumb-title">${e.title}</div>
+          </div>
+        </a>`).join('')}</div>
+      </div>`:'';
+      html+=`<div class="tl-row">
+        <div class="tl-head" onclick="togTL('${id}')">
+          <div class="tl-time">${r.time}</div>
+          <div class="tl-officer">${r.officer}</div>
+          <div class="tl-admission">${preview}</div>
+          <div class="tl-harm"><div class="tl-harm-why">${harmWhy}</div><div class="tl-harm-tags">${harmTags}</div></div>
+          <div class="tl-tog" id="tt_${id}">+</div>
+        </div>
+        <div class="tl-body" id="tb_${id}">
+          <div class="tl-ben"><strong style="color:#1d70b8;font-size:10px;text-transform:uppercase;letter-spacing:.08em">Ben said</strong><br>${r.ben}</div>
+          <div class="tl-said"><strong style="color:#f47738;font-size:10px;text-transform:uppercase;letter-spacing:.08em">${r.officer} admitted</strong><br>${r.admitted}</div>
+          <div class="tl-tags">${r.tags.map(t=>`<span class="tag ${t}">${t.replace('tag-','').replace('mis','Misfeasance').replace('ea','Equality Act').replace('s188','S.188').replace('a3','Art 3').replace('a2','Art 2').replace('a6','Art 6')}</span>`).join('')}</div>
+          <div style="font-size:11.5px;border-left:3px solid #4c2c92;padding-left:8px;color:#0b0c0c;line-height:1.65;margin-bottom:8px"><strong style="color:#4c2c92;font-size:10px;text-transform:uppercase;letter-spacing:.08em">Key significance</strong><br>${r.key}</div>
+          <a class="tl-link" href="${r.url}" target="_blank">Open Grain recording ↗</a>
+          ${grainSegments[gi]?`<div class="grain-verbatim"><div class="grain-verbatim-label">&#9632; Verbatim Grain transcript — timestamped segment</div><div class="grain-verbatim-text">${grainSegments[gi]}</div></div>`:''}
+          ${exHtml}
+        </div>
+      </div>`;
+    });
+  });
+  document.getElementById('tl-list').innerHTML=html;
+}
+
+function buildOfficers(){
+  document.getElementById('officer-grid').innerHTML=Object.keys(officers).map(k=>{
+    const o=officers[k];
+    return`<div class="oc">
+      <div class="oc-name">${k}</div>
+      <div class="oc-role">${o.role}</div>
+      <div class="oc-count">${o.count}</div>
+      <div class="oc-sub">admission${o.count>1?'s':''} on tape</div>
+      <div class="oc-key">${o.key}</div>
+      <div class="tl-tags" style="margin-top:8px">${o.tags.map(t=>`<span class="tag ${t}">${t.replace('tag-','').replace('mis','Misfeasance').replace('ea','EA').replace('s188','S.188').replace('a3','Art 3').replace('a2','Art 2')}</span>`).join('')}</div>
+    </div>`;
+  }).join('');
+}
+
+function buildPattern(){
+  document.getElementById('pattern-list').innerHTML=patterns.map((p,i)=>`
+    <div style="border:1px solid #b1b4b6;border-top:none;${i===0?'border-top:1px solid #b1b4b6':''}">
+      <div style="border-left:5px solid ${p.color};padding:13px 16px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start">
+        <div>
+          <div style="font-size:12px;font-weight:700;color:#0b0c0c;margin-bottom:4px">${p.label}</div>
+          <div style="font-size:12px;color:#505a5f;line-height:1.65">${p.detail}</div>
+        </div>
+        <div style="background:${p.color};color:#fff;font-size:10px;font-weight:700;padding:3px 8px;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;flex-shrink:0">${p.outcome}</div>
+      </div>
+    </div>`).join('');
+}
+
+function buildTable(){
+  document.getElementById('table-body').innerHTML=raw.map((r,i)=>`
+    <tr>
+      <td>${r.date.split('-').slice(1).reverse().join('/')}</td>
+      <td style="font-variant-numeric:tabular-nums">${r.time}</td>
+      <td style="font-weight:700;color:#4c2c92">${r.officer}</td>
+      <td style="font-size:11px">${r.ben.substring(0,80)}${r.ben.length>80?'…':''}</td>
+      <td style="font-size:11px">${r.admitted.substring(0,80)}${r.admitted.length>80?'…':''}</td>
+      <td>${r.tags.map(t=>`<span class="tag ${t}" style="display:inline-block;margin:1px">${t.replace('tag-','').toUpperCase()}</span>`).join('')}</td>
+    </tr>`).join('');
+}
+
+function togTL(id){
+  const open=document.getElementById('tb_'+id).classList.toggle('open');
+  document.getElementById('tt_'+id).textContent=open?'−':'+';
+}
+
+function show(tab){
+  ['timeline','officers','pattern','table'].forEach(t=>{
+    document.getElementById('tab-'+t).style.display=t===tab?'block':'none';
+  });
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    t.classList.toggle('on',['timeline','officers','pattern','table'][i]===tab);
+  });
+  if(tab==='officers')buildOfficers();
+  if(tab==='pattern')buildPattern();
+  if(tab==='table')buildTable();
+}
+
+buildTimeline();
+</script>
