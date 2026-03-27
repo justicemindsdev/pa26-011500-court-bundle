@@ -28,10 +28,13 @@ body {
 .page {
   background: #ffffff;
   max-width: 210mm;
+  width: 210mm;
   margin: 12mm auto;
   padding: 25mm 25mm 25mm 35mm; /* top right bottom LEFT(binding) */
   box-shadow: 0 2px 16px rgba(0,0,0,0.18);
   position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* ── RUNNING HEADER ── */
@@ -240,13 +243,24 @@ body {
 }
 
 /* ── PRINT ── */
+@page { size: A4; margin: 0; }
 @media print {
   body { background: white; }
-  .page { margin: 0; box-shadow: none; max-width: none;
-          padding: 25mm 25mm 25mm 35mm; }
+  .page {
+    margin: 0;
+    box-shadow: none;
+    max-width: 210mm;
+    width: 210mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    overflow: hidden;
+    padding: 25mm 25mm 25mm 35mm;
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+  .form-page img { max-height: 100%; max-width: 100%; object-fit: contain; }
   .edit-hint { display: none; }
   [contenteditable]:hover, [contenteditable]:focus { background: transparent; box-shadow: none; }
-  .page { page-break-after: always; }
   .no-break { page-break-inside: avoid; }
 }
 </style>
