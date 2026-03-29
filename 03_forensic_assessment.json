@@ -1,0 +1,44 @@
+{
+  "extraction_timestamp": "2026-03-25T20:57:24.518956",
+  "case_overview": {
+    "subject": "Abel (child)",
+    "context": "Child welfare assessment with contact/placement considerations",
+    "key_parties": [
+      "Ashley (sister/advocate)",
+      "Ben",
+      "Hannah",
+      "Leah"
+    ],
+    "jurisdiction": "Liverpool Social Services"
+  },
+  "institutional_analysis": {
+    "decision_framework": "Multi-agency, thresholds-based, risk-led",
+    "typical_tactics_observed": [
+      "Risk amplification through procedure chaining",
+      "Parental capacity reduction narratives",
+      "Contact restriction as 'safety management'",
+      "Permanence planning via placement acceleration"
+    ],
+    "liverpool_context_notes": [
+      "Heavy reliance on early intervention frameworks",
+      "Contact orders often graduated (supervised\u2192indirect)",
+      "Kinship assessments typically slower than foster",
+      "Advocacy challenges: threshold gatekeeping"
+    ]
+  },
+  "pattern_counts": {
+    "placement_indicators_found": 11,
+    "contact_references_found": 3,
+    "decision_points_found": 14,
+    "behavioral_assessments_found": 3,
+    "timeline_events_found": 3
+  },
+  "critical_examination_areas": [
+    "Is assessment proportionate to actual harm evidence?",
+    "Do decision points follow procedural sequencing or accelerate?",
+    "Are behavioral assessments attributed correctly (child vs. systemic)?",
+    "Contact restriction justifications: protective need vs. control mechanism?",
+    "Placement plans: permanence-focused or child-outcome-focused?",
+    "Advocate counter-arguments: are they substantive or procedurally marginalized?"
+  ]
+}
